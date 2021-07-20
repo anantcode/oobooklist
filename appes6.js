@@ -61,6 +61,19 @@ class UI {
     }
 }
 
+// Local storage class
+class Store {
+    constructor() {}
+
+    static getBooks() {}
+
+    static displayBooks() {}
+
+    static addBook() {}
+
+    static removeBook() {}
+}
+
 document.getElementById("book-form").addEventListener("submit", function (e) {
     const title = document.getElementById("title").value,
         author = document.getElementById("author").value,

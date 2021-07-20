@@ -65,11 +65,24 @@ class UI {
 class Store {
     constructor() {}
 
-    static getBooks() {}
+    static getBooks() {
+        let books;
+        if (localStorage.getItem("books") === null) {
+            books = [];
+        } else {
+            books = JSON.parse(localStorage.getItem("books"));
+        }
+
+        return books;
+    }
 
     static displayBooks() {}
 
-    static addBook() {}
+    static addBook(book) {
+        const books = Store.getBooks();
+        books.push(book);
+        localStorage.setItem("books", JSON.stringify(books));
+    }
 
     static removeBook() {}
 }
@@ -89,6 +102,7 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
     } else {
         //Add book to list
         ui.addBookToList(book);
+        Store.addBook(book);
         ui.clearFields();
         ui.showAlert("Added!", "success");
     }
@@ -107,4 +121,10 @@ document.getElementById("book-list").addEventListener("click", function (e) {
     ui.showAlert("Book removed", "success");
 
     e.preventDefault();
+});
+
+const books = Store.getBooks();
+const ui = new UI();
+books.forEach((book) => {
+    ui.addBookToList(book);
 });

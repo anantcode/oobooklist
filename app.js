@@ -49,6 +49,10 @@ UI.prototype.showAlert = function (message, className) {
     const form = document.querySelector("#book-form");
     // insert alert
     container.insertBefore(div, form);
+
+    setTimeout(function () {
+        document.querySelector(".alert").remove();
+    }, 2000);
 };
 
 //Event Listeners

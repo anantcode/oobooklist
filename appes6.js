@@ -10,8 +10,7 @@ class UI {
     constructor() {}
 
     addBookToList(book) {
-        console.log("Book added!");
-        console.log(book);
+        console.log(`Book to be added ${book}`);
         const list = document.getElementById("book-list");
 
         //creatre a new tr element
@@ -25,8 +24,7 @@ class UI {
     `;
 
         list.appendChild(row);
-
-        console.log(row);
+        console.log("Book added!");
     }
 
     deleteBook(target) {
@@ -90,7 +88,19 @@ class Store {
         localStorage.setItem("books", JSON.stringify(books));
     }
 
-    static removeBook() {}
+    static removeBook(isbn) {
+        console.log(`Book to be deleted (ISBN): ${isbn}`);
+
+        const books = Store.getBooks();
+
+        books.forEach(function (book, index) {
+            if (book.isbn === isbn) {
+                books.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem("books", JSON.stringify(books));
+    }
 }
 
 // DOM load event
@@ -125,6 +135,8 @@ document.getElementById("book-list").addEventListener("click", function (e) {
     const ui = new UI();
 
     ui.deleteBook(e.target);
+
+    Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
 
     // show message
     ui.showAlert("Book removed", "success");

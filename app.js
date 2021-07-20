@@ -10,10 +10,6 @@ function UI() {}
 
 UI.prototype.addBookToList = function (book) {
     console.log(book);
-};
-
-UI.prototype.addBookToList = function (book) {
-    console.log(book);
     const list = document.getElementById("book-list");
 
     //creatre a new tr element

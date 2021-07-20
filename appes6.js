@@ -76,7 +76,13 @@ class Store {
         return books;
     }
 
-    static displayBooks() {}
+    static displayBooks() {
+        const books = Store.getBooks();
+        const ui = new UI();
+        books.forEach((book) => {
+            ui.addBookToList(book);
+        });
+    }
 
     static addBook(book) {
         const books = Store.getBooks();
@@ -86,6 +92,9 @@ class Store {
 
     static removeBook() {}
 }
+
+// DOM load event
+document.addEventListener("DOMContentLoaded", Store.displayBooks);
 
 document.getElementById("book-form").addEventListener("submit", function (e) {
     const title = document.getElementById("title").value,
@@ -121,10 +130,4 @@ document.getElementById("book-list").addEventListener("click", function (e) {
     ui.showAlert("Book removed", "success");
 
     e.preventDefault();
-});
-
-const books = Store.getBooks();
-const ui = new UI();
-books.forEach((book) => {
-    ui.addBookToList(book);
 });
